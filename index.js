@@ -18,16 +18,18 @@ bot.on('message', async (msg) => {
       return;
     }
 
-    const regex = /\((.*?)\)\)\)/;
-    const matches = regex.exec(url[1]);
-    const query = matches[0];
 
-    const apiUrl = `http://api.encar.com/search/car/list/premium?count=true&q=${query}&sr=%7CModifiedDate%7C0%7C20`;
+    // 아래 regex를 "("" << 갯수 찾아서 ")" 가변으로 생성.
+    // const regex = /\((.*?)\)\)\)/;
+    // const matches = regex.exec(url[1]);
+    // const query = matches[0];
 
-    const res = await fetch(apiUrl);
-    const cars = await res.json();
+    // const apiUrl = `http://api.encar.com/search/car/list/premium?count=true&q=${query}&sr=%7CModifiedDate%7C0%7C20`;
 
-    console.log(cars);
+    // const res = await fetch(apiUrl);
+    // const cars = await res.json();
+
+    // console.log(cars);
   }
 
   // bot.sendMessage(chatId, 'Received your message');
