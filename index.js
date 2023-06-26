@@ -55,7 +55,7 @@ const functions = {
     if(cars.Count === 0) {
       bot.sendMessage(chatId, '등록이 완료되었습니다. 현재 등록된 매물이 없습니다.');
     } else {
-      let cnt = 1;
+      // let cnt = 1;
       let message  = `등록이 완료되었습니다. (${cars.Count} 대)\n\n`;
 
       // cars.SearchResults.forEach((car) => {
