@@ -163,5 +163,4 @@ bot.on('message', (msg) => {
   }
 });
 
-setInterval(functions.check, 3000);
-
+setInterval(functions.check, 6000);
