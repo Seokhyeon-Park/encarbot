@@ -26,7 +26,7 @@ const functions = {
     const query = url.substring(start, end + 1);
 
     // API URL
-    const apiUrl = `http://api.encar.com/search/car/list/premium?count=true&q=${query}&sr=%7CModifiedDate%7C0%7C299`;
+    const apiUrl = `https://api.encar.com/search/car/list/premium?count=true&q=${query}&sr=%7CModifiedDate%7C0%7C299`;
 
     // API 결과
     const res = await fetch(apiUrl);
@@ -163,4 +163,4 @@ bot.on('message', (msg) => {
   }
 });
 
-setInterval(functions.check, 6000);
+setInterval(functions.check, 300000);
