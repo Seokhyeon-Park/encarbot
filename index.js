@@ -53,10 +53,10 @@ const functions = {
     }
 
     if(cars.Count === 0) {
-      bot.sendMessage(chatId, '등록이 완료되었습니다. 현재 등록된 매물이 없습니다.\n\n*필터링 차량이 300대가 넘어가는 경우 신규 차량이 등록됨은 알 수 있으나 List는 출력되지 않습니다.');
+      bot.sendMessage(chatId, '등록이 완료되었습니다. 현재 등록된 매물이 없습니다.\n\n*필터링 차량이 총 300대가 넘어가는 경우 신규 차량이 등록됨은 알 수 있으나 List는 출력되지 않습니다.');
     } else {
       // let cnt = 1;
-      let message  = `등록이 완료되었습니다. (${cars.Count} 대)\n\n*필터링 차량이 300대가 넘어가는 경우 신규 차량이 등록됨은 알 수 있으나 List는 출력되지 않습니다.`;
+      let message  = `등록이 완료되었습니다. (${cars.Count} 대)\n\n*필터링 차량이 총 300대가 넘어가는 경우 신규 차량이 등록됨은 알 수 있으나 List는 출력되지 않습니다.`;
 
       // cars.SearchResults.forEach((car) => {
       //   const year = String(car.Year).substring(2, 4);
