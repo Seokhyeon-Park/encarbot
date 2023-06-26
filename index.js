@@ -26,7 +26,7 @@ const functions = {
     const query = url.substring(start, end + 1);
 
     // API URL
-    const apiUrl = `http://api.encar.com/search/car/list/premium?count=true&q=${query}&sr=%7CModifiedDate%7C0%7C20`;
+    const apiUrl = `http://api.encar.com/search/car/list/premium?count=true&q=${query}&sr=%7CModifiedDate%7C0%7C299`;
 
     // API 결과
     const res = await fetch(apiUrl);
@@ -53,10 +53,10 @@ const functions = {
     }
 
     if(cars.Count === 0) {
-      bot.sendMessage(chatId, '등록이 완료되었습니다. 현재 등록된 매물이 없습니다.');
+      bot.sendMessage(chatId, '등록이 완료되었습니다. 현재 등록된 매물이 없습니다.\n\n*필터링 차량이 300대가 넘어가는 경우 신규 차량이 등록됨은 알 수 있으나 List는 출력되지 않습니다.');
     } else {
       // let cnt = 1;
-      let message  = `등록이 완료되었습니다. (${cars.Count} 대)\n\n`;
+      let message  = `등록이 완료되었습니다. (${cars.Count} 대)\n\n*필터링 차량이 300대가 넘어가는 경우 신규 차량이 등록됨은 알 수 있으나 List는 출력되지 않습니다.`;
 
       // cars.SearchResults.forEach((car) => {
       //   const year = String(car.Year).substring(2, 4);
@@ -124,18 +124,22 @@ const functions = {
             let cnt = 1;
             let message  = `${koreanTime} 기준 신규 차량 (${newCars.length} 대)\n\n`;
 
-            newCars.forEach((car) => {
-              const year = String(car.Year).substring(2, 4);
-              const month = String(car.Year).substring(4, 6);
-              
-              message += `[${cnt}] ${year}년식 ${month}월 / ${car.Price} 만원`;
-              if ('LeaseType' in car) { message += ` (${car.LeaseType})`; }
-              message +=  ` / 주행거리 : ${car.Mileage} / ${car.OfficeCityState}\n\n`;
-
-              cnt++;
-            });
-
-            bot.sendMessage(r.id, message);
+            if(r.count < 299) {
+              newCars.forEach((car) => {
+                const year = String(car.Year).substring(2, 4);
+                const month = String(car.Year).substring(4, 6);
+                
+                message += `[${cnt}] ${year}년식 ${month}월 / ${car.Price} 만원`;
+                if ('LeaseType' in car) { message += ` (${car.LeaseType})`; }
+                message +=  ` / 주행거리 : ${car.Mileage} / ${car.OfficeCityState}\n\n`;
+  
+                cnt++;
+              });
+  
+              bot.sendMessage(r.id, message);
+            } else {
+              bot.sendMessage(r.id, message);
+            }
 
             requester[requesterIndex].count = cars.Count;
             requester[requesterIndex].show = false;
@@ -159,5 +163,5 @@ bot.on('message', (msg) => {
   }
 });
 
-setInterval(functions.check, 300000);
+setInterval(functions.check, 3000);
 
