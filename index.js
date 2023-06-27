@@ -88,6 +88,8 @@ const functions = {
         // 유저 Index 확인
         const requesterIndex = requester.findIndex(obj => obj.id === r.id);
 
+        console.log(r.id, " (", cars.Count, " / ", r.count, ")");
+
         if(parseInt(cars.Count) - parseInt(r.count) !== 0) {
           if(parseInt(cars.Count) - parseInt(r.count) > 0) {
             // 신규 등록건이 있는 경우
