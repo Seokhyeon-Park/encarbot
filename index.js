@@ -167,10 +167,10 @@ const functions = {
 
 bot.on('message', (msg) => {
   try {
-    if (msg.text.includes("/add")) { functions.add(msg); }
-    if (msg.text.includes("/list")) { functions.list(msg); }
-    if (msg.text.includes("/delete")) { functions.delete(msg); }
-    if (msg.text.includes("/help")) { functions.help(msg); }
+    if (msg.text.includes("/add") || msg.text.includes("/ADD")) { functions.add(msg); }
+    if (msg.text.includes("/list") || msg.text.includes("/LIST")) { functions.list(msg); }
+    if (msg.text.includes("/delete") || msg.text.includes("/DELETE")) { functions.delete(msg); }
+    if (msg.text.includes("/help") || msg.text.includes("/HELP")) { functions.help(msg); }
   } catch (err) {
     bot.sendMessage(chatId, `잘못된 요청입니다. 명령어 및 주소를 다시 확인해주세요.`);
     console.log(err);
