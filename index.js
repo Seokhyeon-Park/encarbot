@@ -1,5 +1,4 @@
 const fs = require('fs');
-const path = require('path');
 const packageData = require('./package.json');
 const TelegramBot = require('node-telegram-bot-api');
 const fetch = require('node-fetch');
@@ -106,7 +105,7 @@ const functions = {
 
                 message += `[${cnt}] ${year}년식 ${month}월 / ${car.Price} 만원`;
                 if ('LeaseType' in car) { message += ` (${car.LeaseType})`; }
-                message += ` / 주행거리 : ${car.Mileage} / ${car.OfficeCityState}\n\n`;
+                message += ` / 주행거리 : ${car.Mileage} / ${car.OfficeCityState} / http://www.encar.com/dc/dc_cardetailview.do?pageid=fc_carsearch&listAdvType=normal&carid=${car.Id}\n\n`;
 
                 cnt++;
               });
@@ -136,7 +135,7 @@ const functions = {
       }
     };
 
-    if(message === '') { 
+    if (message === '') {
       bot.sendMessage(chatId, '추가한 차량이 없습니다.');
     } else {
       bot.sendMessage(chatId, message);
@@ -184,7 +183,7 @@ const functions = {
         console.error('데이터 불러오기 중 오류 발생:', err);
         return;
       }
-    
+
       // 기존 데이터 병합
       const parsedData = JSON.parse(data);
 
