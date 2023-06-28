@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const packageData = require('./package.json');
 const TelegramBot = require('node-telegram-bot-api');
 const fetch = require('node-fetch');
@@ -5,7 +7,7 @@ const fetch = require('node-fetch');
 const token = packageData.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
-const requester = [];
+let requester = [];
 
 const functions = {
   add: async (msg) => {
@@ -43,6 +45,9 @@ const functions = {
       'apiUrl': apiUrl,
       'result': cars.SearchResults,
     });
+
+    // 데이터 저장
+    functions.save(requester);
 
     if (cars.Count === 0) {
       bot.sendMessage(chatId, '등록이 완료되었습니다. 현재 등록된 매물이 없습니다.\n\n*필터링 차량이 총 300대가 넘어가는 경우 신규 차량이 등록됨은 알 수 있으나 List는 출력되지 않습니다.');
@@ -155,7 +160,37 @@ const functions = {
       }
     };
 
+    // 데이터 저장
+    functions.save(requester);
+
     functions.list(msg);
+  },
+  save: (data) => {
+    const filePath = './requester.txt';
+
+    fs.writeFile(filePath, JSON.stringify(data), (err) => {
+      if (err) {
+        console.error('데이터 저장 중 오류 발생:', err);
+        return;
+      }
+      console.log('데이터가 성공적으로 저장되었습니다.');
+    });
+  },
+  load: () => {
+    const filePath = './requester.txt';
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+        console.error('데이터 불러오기 중 오류 발생:', err);
+        return;
+      }
+    
+      // 기존 데이터 병합
+      const parsedData = JSON.parse(data);
+
+      console.log('데이터:', parsedData);
+      requester = parsedData;
+    });
   },
   help: (msg) => {
     const chatId = msg.chat.id;
@@ -177,4 +212,8 @@ bot.on('message', (msg) => {
   }
 });
 
+// 기존 데이터 불러오기
+functions.load();
+
+// 매물 확인
 setInterval(functions.check, 300000);
