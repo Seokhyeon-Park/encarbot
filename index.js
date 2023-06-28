@@ -92,7 +92,7 @@ const functions = {
             }
 
             let cnt = 1;
-            let message = `${koreanTime} 신규 등록 차량 (${newCarsCnt} 대)\n\n`;
+            let message = `${koreanTime} ${cars.SearchResults[0].Model} 신규 등록 차량 (${newCarsCnt} 대)\n\n`;
 
             if (r.count < 299) {
               newCars.forEach((car) => {
