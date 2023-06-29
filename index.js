@@ -118,6 +118,11 @@ const functions = {
             requester[requesterIndex].count = cars.Count;
             requester[requesterIndex].apiUrl = apiUrl;
             requester[requesterIndex].result = cars.SearchResults;
+          } else if(newCarsCnt < 0 ) {
+            let message = `${koreanTime} ${cars.SearchResults[0].Model} 판매된 차량 (${newCarsCnt} 대)\n\n`;
+            bot.sendMessage(r.id, message);
+
+            requester[requesterIndex].count = cars.Count;
           } else {
             requester[requesterIndex].count = cars.Count;
           }
@@ -187,7 +192,6 @@ const functions = {
       // 기존 데이터 병합
       const parsedData = JSON.parse(data);
 
-      console.log('데이터:', parsedData);
       requester = parsedData;
     });
   },
