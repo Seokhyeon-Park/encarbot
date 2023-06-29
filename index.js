@@ -127,10 +127,10 @@ const functions = {
             requester[requesterIndex].count = cars.Count;
           }
         }
-        
-        // 데이터 저장
-        functions.save(requester);
       });
+
+      // 데이터 저장
+      functions.save(requester);
     }
   },
   list: (msg) => {
