@@ -96,7 +96,7 @@ const functions = {
             }
 
             let cnt = 1;
-            let message = `${koreanTime} ${cars.SearchResults[0].Model} 신규 등록 차량 (${newCarsCnt} 대)\n\n`;
+            let message = `${koreanTime} ${cars.SearchResults[0].Model} 신규 등록 차량 (${newCarsCnt} 대 / 총 ${cars.Count} 대)\n\n`;
 
             if (r.count < 299) {
               newCars.forEach((car) => {
@@ -119,7 +119,7 @@ const functions = {
             requester[requesterIndex].apiUrl = apiUrl;
             requester[requesterIndex].result = cars.SearchResults;
           } else if(newCarsCnt < 0 ) {
-            let message = `${koreanTime} ${cars.SearchResults[0].Model} 판매된 차량 (${Math.abs(newCarsCnt)} 대)\n\n`;
+            let message = `${koreanTime} ${cars.SearchResults[0].Model} 판매된 차량 (${Math.abs(newCarsCnt)} 대 / 총 ${cars.Count} 대)\n\n`;
             bot.sendMessage(r.id, message);
 
             requester[requesterIndex].count = cars.Count;
@@ -127,6 +127,9 @@ const functions = {
             requester[requesterIndex].count = cars.Count;
           }
         }
+        
+        // 데이터 저장
+        functions.save(requester);
       });
     }
   },
