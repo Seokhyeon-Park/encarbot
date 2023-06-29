@@ -119,7 +119,7 @@ const functions = {
             requester[requesterIndex].apiUrl = apiUrl;
             requester[requesterIndex].result = cars.SearchResults;
           } else if(newCarsCnt < 0 ) {
-            let message = `${koreanTime} ${cars.SearchResults[0].Model} 판매된 차량 (${newCarsCnt} 대)\n\n`;
+            let message = `${koreanTime} ${cars.SearchResults[0].Model} 판매된 차량 (${Math.abs(newCarsCnt)} 대)\n\n`;
             bot.sendMessage(r.id, message);
 
             requester[requesterIndex].count = cars.Count;
