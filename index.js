@@ -233,5 +233,4 @@ bot.on('message', (msg) => {
 functions.load();
 
 // 매물 확인
-setInterval(functions.check, 1000);
-// setInterval(functions.check, 300000);
+setInterval(functions.check, 300000);
