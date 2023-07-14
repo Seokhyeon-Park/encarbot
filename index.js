@@ -6,6 +6,17 @@ const fetch = require('node-fetch');
 const token = packageData.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
+const headers = {
+  'Accept': 'application/json, text/javascript, */*; q=0.01',
+  'Accept-Encoding': 'gzip, deflate',
+  'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
+  'Connection': 'keep-alive',
+  'Host': 'api.encar.com',
+  'Origin': 'http://www.encar.com',
+  'Referer': 'http://www.encar.com/',
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36'
+};
+
 let requester = [];
 
 const functions = {
@@ -30,7 +41,7 @@ const functions = {
     const apiUrl = `https://api.encar.com/search/car/list/premium?count=true&q=${query}&sr=%7CModifiedDate%7C0%7C299`;
 
     // API 결과
-    const res = await fetch(apiUrl);
+    const res = await fetch(apiUrl, { headers });
     const cars = await res.json();
 
     // 데이터 식별번호
@@ -66,7 +77,7 @@ const functions = {
         const apiUrl = r.apiUrl;
 
         // API 결과
-        const res = await fetch(apiUrl);
+        const res = await fetch(apiUrl, { headers });
         const cars = await res.json();
 
         // 신규 차량
@@ -222,4 +233,5 @@ bot.on('message', (msg) => {
 functions.load();
 
 // 매물 확인
-setInterval(functions.check, 300000);
+setInterval(functions.check, 1000);
+// setInterval(functions.check, 300000);
